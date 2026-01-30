@@ -1,0 +1,66 @@
+.form-section {
+  display: flex;
+  justify-content: center; // Centrado horizontal
+  align-items: center;     // Centrado vertical (si el contenedor tiene altura)
+  padding: 2rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  mat-card {
+    width: 100%;
+    max-width: 500px; // Ancho máximo para escritorio
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); // Sombra suave para resaltar
+    border-radius: 12px;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: #333;
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+
+  .full-width {
+    width: 100%; 
+    margin-bottom: 0.5rem;
+  }
+
+  mat-dialog-actions {
+    padding-top: 1rem;
+    gap: 10px; // Espacio entre botones
+  }
+}
+
+// Responsive: Ajustes para pantallas pequeñas
+@media (max-width: 480px) {
+  .form-section {
+    padding: 1rem 0.5rem;
+
+    mat-card {
+      padding: 1rem;
+      border-radius: 0; // Opcional: bordes rectos en móvil para ganar espacio
+      box-shadow: none; // Opcional: quitar sombra en móvil si es pantalla completa
+    }
+
+    mat-dialog-actions {
+      flex-direction: column-reverse; // Botones apilados en móviles muy pequeños
+      align-items: stretch;
+      
+      button {
+        width: 100%; // Botones de ancho completo en móvil
+        margin: 0 !important;
+      }
+    }
+  }
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}

@@ -1,0 +1,1 @@
+export const environment = { production: false, api: "http://127.0.0.1:5001/challenge-tasks/us-central1/api" }

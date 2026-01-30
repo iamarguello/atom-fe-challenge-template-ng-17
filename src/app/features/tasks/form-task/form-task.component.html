@@ -1,0 +1,28 @@
+<section class="form-section">
+    <mat-card>
+        <h2>{{ data ? 'Editar Tarea' : 'Nueva Tarea' }}</h2>
+        <form [formGroup]="taskForm">
+            <mat-dialog-content>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Título</mat-label>
+                    <input matInput formControlName="title" placeholder="Ej: Titulo de la tarea">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput formControlName="description" rows="4"
+                        placeholder="Detalles de la tarea..."></textarea>
+                </mat-form-field>
+            </mat-dialog-content>          
+            <mat-dialog-actions align="end">
+                <button mat-flat-button color="accent" type="submit" [disabled]="taskForm.invalid"
+                    (click)="onSaveTask()">
+                    {{ data ? 'Actualizar' : 'Agregar' }}
+                </button>
+                <button mat-flat-button color="warn" type="button" (click)="onCancel()">
+                    Cancelar
+                </button>
+            </mat-dialog-actions>
+        </form>
+    </mat-card>
+</section>

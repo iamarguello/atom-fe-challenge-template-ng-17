@@ -1,0 +1,36 @@
+<app-toolbar (add)="showModal()" (logout)="endSession()"></app-toolbar>
+
+<div class="card-task-container">
+  <div class="alert alert-success" role="alert">
+    {{user}}
+  </div>
+  <section class="list-section">
+    <div class="task-grid">
+      @for (task of tasks(); track task.id) {
+      <mat-card [class.is-completed]="task.completed" style="background-color: #ECFCCA;">
+        <mat-card-header style="    background-color: #FEF9C2;">
+          <mat-checkbox [checked]="task.completed" (change)="toggleStatus(task)"></mat-checkbox>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-subtitle>{{ task.createdAt | DateFormat | date:'dd/MM/yyyy HH:mm' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <div class="example-button-row">
+            <button mat-flat-button color="accent"
+              (click)="prepareEdit(task)"><mat-icon>edit_square</mat-icon>EDITAR</button>
+            <button mat-flat-button color="warn"
+              (click)="deleteTask(task.id!)"><mat-icon>delete</mat-icon>ELIMINAR</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+      } @empty{
+      <div class="task-empty">
+        <mat-icon>folder_off</mat-icon>
+        <span>No existen tareas registradas</span>
+      </div>
+      }
+    </div>
+  </section>
+</div>

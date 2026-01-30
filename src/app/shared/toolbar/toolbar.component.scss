@@ -1,0 +1,23 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.title-brand {
+    margin-left: 2rem;
+
+}
+
+.task-add {
+    margin-right: 1rem;
+}
+
+@media (max-width: 480px){
+   .title-brand {
+    display: none;
+   }
+}
