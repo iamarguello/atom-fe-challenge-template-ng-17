@@ -27,46 +27,52 @@ export class LoginComponent {
   async onSubmit() {
     if (this.loginForm.valid) {
       const { email } = this.loginForm.value;
-        
-        await this.authService.login({ email: email as string }).subscribe({ 
-          next: (response ) => { 
-            debugger;
-            console.log('response logincomponent ', response)
-            if (response && response.data && response.data.token) {
-              localStorage.setItem('auth_token', response.data.token);
-              
-              localStorage.setItem('user_info', JSON.stringify(response.data.user));
-            }
-            this.router.navigate(['/task']);          
-         }, 
-         error: (err) => { 
-            if(err.status==HttpStatusCode.NotFound){
-              Swal.fire({
-                    title: "Confirmación",
-                    text: "La cuenta de correo electrónica no se encuentra registrada, desea registrarla?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si",
-                    cancelButtonText: "No"
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      this.authService.createUser({email: email as string}).subscribe({
-                        next: () => {
-                          this.onSubmit();
-                          Swal.fire({
-                            title: 'Notificación',
-                            text: 'Usuario registrado satisfactoriamente.',
-                            icon: 'success',
-                            confirmButtonText: 'Ok'
-                          })
-                        }
-                      });
-                    }
-                  });
-            }
+
+      await this.authService.login({ email: email as string }).subscribe({
+        next: (response) => {
+          if (response && response.data && response.data.token) {
+            localStorage.setItem('auth_token', response.data.token);
+
+            localStorage.setItem('user_info', JSON.stringify(response.data.user));
           }
+          this.router.navigate(['/task']);
+        },
+        error: (err) => {
+          if (err.status == HttpStatusCode.NotFound) {
+            Swal.fire({
+              title: "Confirmación",
+              text: "La cuenta de correo electrónica no se encuentra registrada, desea registrarla?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Si",
+              cancelButtonText: "No"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.authService.createUser({ email: email as string }).subscribe({
+                  next: () => {
+                    this.onSubmit();
+                    Swal.fire({
+                      title: 'Notificación',
+                      text: 'Usuario registrado satisfactoriamente.',
+                      icon: 'success',
+                      confirmButtonText: 'Ok'
+                    })
+                  }
+                });
+              }
+            });
+          }
+          else {
+            Swal.fire({
+              title: 'Error',
+              text: 'Ha ocurrido un error, verifique el formato del correo.',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            })
+          }
+        }
       });
 
     }

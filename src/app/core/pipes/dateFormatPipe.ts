@@ -8,7 +8,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class DateFormat implements PipeTransform { 
     transform(value: Timestamp | Date | string | null | undefined): Date | null {
     if (!value) return null;
-    console.log('value', value);
 
     if (value instanceof Date) return value;
 
